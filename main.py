@@ -18,8 +18,9 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS stephen_king_adaptations_table (
 # Insert the contents of the list into the database table
 for movie in stephen_king_adaptations_list:
     movie_ID,movie_Name,movie_Year,imdbRating= movie.strip().split(',')
-
-    cursor.execute('''INSERT INTO stephen_king_adaptations_table ( movieID, movieName, movieYear, imdbRating)  VALUES (?, ?, ?, ?)''', (int(movie_ID[1:]), movie_Name, float(movie_Year), float(imdbRating)))
+    cursor.execute('''SELECT * FROM stephen_king_adaptations_table''')
+    if cursor.fetchone() is None:
+        cursor.execute('''INSERT INTO stephen_king_adaptations_table ( movieID, movieName, movieYear, imdbRating)  VALUES (?, ?, ?, ?)''', (int(movie_ID[1:]), movie_Name, float(movie_Year), float(imdbRating)))
 
 connection.commit()
 
